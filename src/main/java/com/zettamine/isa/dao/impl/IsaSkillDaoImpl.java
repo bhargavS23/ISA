@@ -14,6 +14,8 @@ import com.zettamine.isa.dto.Skill;
 import com.zettamine.isa.dto.SearchCriteria;
 
 public class IsaSkillDaoImpl implements IsaDao<Skill, SearchCriteria> {
+	
+	
 	private Connection con = null;
 	private PreparedStatement presat = null;
 
@@ -62,15 +64,17 @@ public class IsaSkillDaoImpl implements IsaDao<Skill, SearchCriteria> {
 	@Override
 	public List<Skill> getBySearchCriteria(SearchCriteria criteria) {
 		
+		
 		return null;
 	}
 
 	@Override
 	public void save(Skill skill) {
-		String query ="insert into skill(skill_desc) values(?)";
+		String query ="insert into isa.skill(skill_desc) values(?)";
 		try {
+			presat = con.prepareStatement(query);
 			presat.setString(1, skill.getSkillDsec());
-			presat=con.prepareStatement(query);
+			presat.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -83,7 +87,7 @@ public class IsaSkillDaoImpl implements IsaDao<Skill, SearchCriteria> {
 	@Override
 	public void delete(Skill skill) {
 		
-		String query ="DELETE isa.skill WHERE skill_id= ?";
+		String query ="DELETE FROM isa.skill WHERE skill_id= ?";
 		try {
 			presat=con.prepareStatement(query);
 			presat.setInt(1, skill.getSkillId());

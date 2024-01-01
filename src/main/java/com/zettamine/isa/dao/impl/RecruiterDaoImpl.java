@@ -21,12 +21,10 @@ public class RecruiterDaoImpl implements IsaDao<Recruiter, IsaSearchCriteria> {
 
 	public RecruiterDaoImpl() {
 		 con = ConnectionFactory.getDBConnection();
-		
 	}
 
 	@Override
 	public Optional<Recruiter> get(int id) {
-		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
 
@@ -57,9 +55,7 @@ public class RecruiterDaoImpl implements IsaDao<Recruiter, IsaSearchCriteria> {
 	@Override
 	public List<Recruiter> getBySearchCriteria(IsaSearchCriteria criteria) {
 		
-		System.out.println(criteria.getRecrEmail());
-		System.out.println(criteria.getRecrPassword());
-		String query ="select * from isa.recruiter where email=? and password=?;";
+		String query ="select * from isa.recruiter where email=? and recruiter_password=?";
 		
 		List<Recruiter> recrList= new ArrayList<>();
 		try {
@@ -69,14 +65,13 @@ public class RecruiterDaoImpl implements IsaDao<Recruiter, IsaSearchCriteria> {
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
 				Recruiter recr = new Recruiter();
-				recr.setRecruiterEmail(rs.getString(2));
-				recr.setRecruiterPass(rs.getString(3));
+				recr.setRecruiterEmail(rs.getString(3));
+				recr.setRecruiterPass(rs.getString(4));
 				recrList.add(recr);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(recrList);
 		return recrList;
 	}
 

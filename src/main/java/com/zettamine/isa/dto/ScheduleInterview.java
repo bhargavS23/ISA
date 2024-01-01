@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InterviewsScheduled implements IsaDto {
+public class ScheduleInterview implements IsaDto {
 	private Integer scheduleId;
 	private Integer applicantId;
 	private Integer interviewerId;

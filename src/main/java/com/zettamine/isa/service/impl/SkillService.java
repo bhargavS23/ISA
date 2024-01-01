@@ -1,6 +1,5 @@
 package com.zettamine.isa.service.impl;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,45 +7,35 @@ import com.zettamine.isa.dao.IsaDao;
 import com.zettamine.isa.dao.impl.IsaSkillDaoImpl;
 import com.zettamine.isa.dto.SearchCriteria;
 import com.zettamine.isa.dto.Skill;
-import com.zettamine.isa.service.IsaService;
 
-public class SkillService implements IsaService<Skill, SearchCriteria> {
+public class SkillService {
 
-	static IsaDao< Skill, SearchCriteria> dao = new IsaSkillDaoImpl();
-	@Override
-	public Optional<Skill> get(int id) {
-		Optional<Skill>skillbyId = null;
-		try {
-			skillbyId   = dao.get(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
+	static IsaDao<Skill, SearchCriteria> dao = new IsaSkillDaoImpl();
+	
+	public Skill get(int id) {
+		
+		Optional<Skill> skillOptional = dao.get(id);
+		if(skillOptional.isPresent()) {
+			return skillOptional.get();
 		}
-		return skillbyId;
+		return skillOptional.orElse(new Skill());
 	}
 
-	@Override
 	public List<Skill> getAll() {
 		
 		return dao.getAll();
 	}
 
-	@Override
-	public List<Skill> getBySearchCriteria(SearchCriteria criteria) {
-		return null;
-	}
-
-	@Override
 	public void save(Skill t) {
+		
+		t.setSkillDsec(t .getSkillDsec().toUpperCase());	
 		dao.save(t);
 	}
 
-	@Override
 	public void update(Skill t, String... params) {
+		t.setSkillDsec(t .getSkillDsec().toUpperCase());
 		dao.update(t, params);
-		
 	}
-
-	@Override
 	public void delete(Skill t) {
 		dao.delete(t);
 	}

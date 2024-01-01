@@ -10,15 +10,10 @@ import java.io.IOException;
 
 public class SkillController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-    public SkillController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		
 	}
 

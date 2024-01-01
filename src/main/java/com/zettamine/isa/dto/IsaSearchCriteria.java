@@ -15,4 +15,8 @@ public class IsaSearchCriteria implements SearchCriteria {
 	private String recrPassword;
 	private String interviewerId;
 	
+	//search criteria for the skill
+	private Integer skillId;
+	
+	
 }

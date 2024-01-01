@@ -12,6 +12,4 @@ public class Interviewer implements IsaDto {
 	private String interviewerName;
 	private String interviewerEmail;
 	private Skill interviewerSkill;
-	private String interviewerRemarks;
-
 }
