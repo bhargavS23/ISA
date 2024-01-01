@@ -14,6 +14,7 @@ import com.zettamine.isa.dto.Recruiter;
 import com.zettamine.isa.dto.ScheduleInterview;
 import com.zettamine.isa.dto.Skill;
 import com.zettamine.isa.dto.Status;
+import com.zettamine.isa.service.impl.ApplicantServices;
 import com.zettamine.isa.service.impl.RecruiterServices;
 
 public class smaple {
@@ -31,9 +32,21 @@ public class smaple {
 //		siDao.save(new ScheduleInterview(0, 1, 2, 1, "Krishna", "Rekha", "Santosh", Date.valueOf(LocalDate.of(2024, 1, 4)), Time.valueOf(LocalTime.of(11, 30)),Status.SCHEDULED));
 //		System.out.println(siDao.getAll());
 		
-		RecruiterServices rs = new RecruiterServices();
-		boolean bySearchCriteria = rs.getBySearchCriteria(new Recruiter(1, "Santosh", "santosh@gamil.com", "Santosh@1234"));
-		System.out.println(bySearchCriteria);
+//		RecruiterServices rs = new RecruiterServices();
+//		boolean bySearchCriteria = rs.getBySearchCriteria(new Recruiter(1, "Santosh", "santosh@gamil.com", "Santosh@1234"));
+//		System.out.println(bySearchCriteria);
+		
+//		ApplicantServices app = new ApplicantServices();
+//		Applicant applicant = new Applicant(0, "Raju", "raju@outlook.com", new Skill(9,"C++"), "9988654376", "B.COM", "COMPUTERS", "Average", 66.98);
+//		Applicant applicant = app.get(1);
+//		app.delete(new Applicant(2, null, null, null, null, null, null, null, null));
+//		List<Applicant> list = app.getBySearchCriteria(new Applicant(null, null, null, new Skill(1,"java"), null, null, null, null, null));
+//		app.save(new Applicant(0, "Raju", "raju@outlook.com", new Skill(9,"C++"), "9988654376", "B.COM", "COMPUTERS", "Average", 66.98));
+//		List<Applicant> list = app.getBySearchCriteria(applicant);
+//		System.out.println(list);
+		
+		
+		
 		
 	}
 	

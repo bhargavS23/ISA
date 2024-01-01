@@ -28,12 +28,12 @@ public class SkillService {
 
 	public void save(Skill t) {
 		
-		t.setSkillDsec(t .getSkillDsec().toUpperCase());	
+		t.setSkillDsec(t.getSkillDsec().toUpperCase().trim().replaceAll("\\s+", " "));	
 		dao.save(t);
 	}
 
 	public void update(Skill t, String... params) {
-		t.setSkillDsec(t .getSkillDsec().toUpperCase());
+		t.setSkillDsec(t .getSkillDsec().toUpperCase().trim().replaceAll("\\s+", " "));
 		dao.update(t, params);
 	}
 	public void delete(Skill t) {
