@@ -10,10 +10,11 @@ import java.util.Optional;
 
 import com.zettamine.isa.dao.IsaDao;
 import com.zettamine.isa.dbconfig.ConnectionFactory;
-import com.zettamine.isa.dto.Skill;
+import com.zettamine.isa.dto.IsaSearchCriteria;
 import com.zettamine.isa.dto.SearchCriteria;
+import com.zettamine.isa.dto.Skill;
 
-public class IsaSkillDaoImpl implements IsaDao<Skill, SearchCriteria> {
+public class IsaSkillDaoImpl implements IsaDao<Skill, IsaSearchCriteria> {
 	
 	
 	private Connection con = null;
@@ -62,22 +63,41 @@ public class IsaSkillDaoImpl implements IsaDao<Skill, SearchCriteria> {
 	}
 
 	@Override
-	public List<Skill> getBySearchCriteria(SearchCriteria criteria) {
+	public List<Skill> getBySearchCriteria(IsaSearchCriteria criteria) {
 		
+		System.out.println(criteria.getSkill_desc());
 		
-		return null;
+		List<Skill> bySearch = new ArrayList<>();
+		String querey = "SELECT * from isa.skill WHERE skill_desc = ?";
+		try {
+			presat = con.prepareStatement(querey);
+			presat.setString(1, criteria.getSkill_desc());
+			
+			ResultSet rs = presat.executeQuery();
+			
+			while(rs.next()) {
+				int skillId = rs.getInt(1);
+				String skillDesc = rs.getString(2);
+				bySearch.add(new Skill(skillId, skillDesc));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bySearch;
 	}
 
 	@Override
-	public void save(Skill skill) {
+	public Integer save(Skill skill) {
 		String query ="insert into isa.skill(skill_desc) values(?)";
 		try {
 			presat = con.prepareStatement(query);
 			presat.setString(1, skill.getSkillDsec());
-			presat.executeUpdate();
+			return presat.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 
 	@Override

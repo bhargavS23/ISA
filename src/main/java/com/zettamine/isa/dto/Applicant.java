@@ -11,7 +11,7 @@ public class Applicant implements IsaDto {
 	private Integer applicantId;
 	private String applicantName;
 	private String applicantEmail;
-	private Skill applicantSkill;
+	private String applicantSkill;
 	private String applicantPhNo;
 	private String applicantQualification;
 	private String stream;

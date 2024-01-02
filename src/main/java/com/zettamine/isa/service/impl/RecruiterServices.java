@@ -14,7 +14,7 @@ public class RecruiterServices  {
 	
 	static IsaDao<Recruiter, IsaSearchCriteria> recDao = new RecruiterDaoImpl();
 	
-	public boolean getBySearchCriteria(Recruiter recruiter) {
+	public boolean verifyRecruiter(Recruiter recruiter) {
 		if (validate(recruiter)) {
 			IsaSearchCriteria scr = new IsaSearchCriteria();
 			scr.setRecrEmail(recruiter.getRecruiterEmail());

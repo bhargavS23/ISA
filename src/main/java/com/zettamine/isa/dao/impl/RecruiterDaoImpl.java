@@ -35,8 +35,8 @@ public class RecruiterDaoImpl implements IsaDao<Recruiter, IsaSearchCriteria> {
 
 	
 	@Override
-	public void save(Recruiter t) {
-		// TODO Auto-generated method stub
+	public Integer save(Recruiter t) {
+		return 0;
 		
 	}
 

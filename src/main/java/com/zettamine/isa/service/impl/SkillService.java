@@ -5,12 +5,13 @@ import java.util.Optional;
 
 import com.zettamine.isa.dao.IsaDao;
 import com.zettamine.isa.dao.impl.IsaSkillDaoImpl;
+import com.zettamine.isa.dto.IsaSearchCriteria;
 import com.zettamine.isa.dto.SearchCriteria;
 import com.zettamine.isa.dto.Skill;
 
 public class SkillService {
 
-	static IsaDao<Skill, SearchCriteria> dao = new IsaSkillDaoImpl();
+	static IsaDao<Skill, IsaSearchCriteria> dao = new IsaSkillDaoImpl();
 	
 	public Skill get(int id) {
 		
@@ -26,10 +27,10 @@ public class SkillService {
 		return dao.getAll();
 	}
 
-	public void save(Skill t) {
+	public Integer save(Skill t) {
 		
 		t.setSkillDsec(t.getSkillDsec().toUpperCase().trim().replaceAll("\\s+", " "));	
-		dao.save(t);
+		return dao.save(t);
 	}
 
 	public void update(Skill t, String... params) {
@@ -38,5 +39,9 @@ public class SkillService {
 	}
 	public void delete(Skill t) {
 		dao.delete(t);
+	}
+	
+	public List<Skill> getBySearchCriteria(IsaSearchCriteria criteria){
+		return dao.getBySearchCriteria(criteria);
 	}
 }

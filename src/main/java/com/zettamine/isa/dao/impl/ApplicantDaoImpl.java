@@ -14,12 +14,17 @@ import com.zettamine.isa.dbconfig.ConnectionFactory;
 import com.zettamine.isa.dto.Applicant;
 import com.zettamine.isa.dto.Interviewer;
 import com.zettamine.isa.dto.IsaSearchCriteria;
+import com.zettamine.isa.dto.SearchCriteria;
 import com.zettamine.isa.dto.Skill;
 
 public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 
 	private Connection con = null;
 	private PreparedStatement presat = null;
+	
+	IsaSkillDaoImpl skillDao = new IsaSkillDaoImpl();
+	
+	IsaSearchCriteria src = new IsaSearchCriteria();
 
 	public ApplicantDaoImpl() {
 		con = ConnectionFactory.getDBConnection();
@@ -49,7 +54,7 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 				int skillId = rs.getInt(8);
 				String stream  = rs.getString(9);
 				Optional<Skill> optional = skillDao.get(skillId);
-				Skill skill = optional.get();
+				String skill = optional.get().getSkillDsec();
 				appOpt= Optional.ofNullable(new Applicant(appId, name, email, skill, phNo, hiQlf, stream, remarks, agr));
 			}
 		} catch (SQLException e) {
@@ -62,7 +67,7 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 	public List<Applicant> getAll() {
 		String querey = "SELECT * FROM isa.applicant";
 		List<Applicant> appList = new ArrayList<Applicant>();
-			
+		
 		try {
 			presat = con.prepareStatement(querey);
 			ResultSet rs = presat.executeQuery();
@@ -80,7 +85,7 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 				int skillId = rs.getInt(8);
 				String stream  = rs.getString(9);
 				Optional<Skill> optional = skillDao.get(skillId);
-				Skill skill = optional.get();
+				String skill = optional.get().getSkillDsec();
 				appList.add(new Applicant(appId, name, email, skill, phNo, hiQlf, stream, remarks, agr));
 			}
 		} catch (SQLException e) {
@@ -89,10 +94,10 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 		return appList;
 	}
 
-	@Override
+	@Override 
 	public List<Applicant> getBySearchCriteria(IsaSearchCriteria criteria) {
 		List<Applicant> intList = new ArrayList<>();
-		IsaSkillDaoImpl skillDao = new IsaSkillDaoImpl();
+		
 		try {
 			presat = con.prepareStatement("SELECT * FROM isa.applicant WHERE primary_skill = ?");
 			presat.setInt(1, criteria.getSkillId());
@@ -108,8 +113,8 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 				int skillId = rs.getInt(8);
 				String stream  = rs.getString(9);
 				Optional<Skill> optional = skillDao.get(skillId);
-				Skill skill = optional.get();
-				intList.add(new Applicant(id, name, email, skill, phNo, hiQlf, stream, remarks, agr));
+				String skillDesc = optional.get().getSkillDsec();
+				intList.add(new Applicant(id, name, email, skillDesc, phNo, hiQlf, stream, remarks, agr));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,11 +123,12 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 	}
 
 	@Override
-	public void save(Applicant t) {
+	public Integer save(Applicant t) {
 		
 		String quere = "INSERT INTO isa.applicant(applicant_name, email, phone_number, highest_qualification, "
 						+ "total_aggregate, remarks, primary_skill, stream) "
 				        + "VALUES(?,?,?,?,?,?,?,?)";
+	
 		try {
 			presat = con.prepareStatement(quere);
 			
@@ -132,19 +138,20 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 			presat.setString(4,t.getApplicantQualification() );
 			presat.setDouble(5, t.getApplicantAggrePercentage());
 			presat.setString(6, t.getApplicantRemarks());
-			presat.setInt(7, t.getApplicantSkill().getSkillId());
+			presat.setInt(7, Integer.parseInt(t.getApplicantSkill()));
 			presat.setString(8, t.getStream());
-			
-			presat.executeUpdate();
+			return presat.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 
 	@Override
 	public void update(Applicant t, String... params) {
 		String quere = "UPDATE isa.applicant SET applicant_name =?, email =?, phone_number=?, "
-				+ "highest_qualification=?, total_aggregate =?, remarks =?, primary_skill =?, stream=?";
+				+ "highest_qualification=?, total_aggregate =?, remarks =?, primary_skill =?, stream=?"
+				+ " WHERE applicant_id = ?";
 		try {
 			presat = con.prepareStatement(quere);
 			
@@ -154,14 +161,14 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 			presat.setString(4,t.getApplicantQualification() );
 			presat.setDouble(5, t.getApplicantAggrePercentage());
 			presat.setString(6, t.getApplicantRemarks());
-			presat.setInt(7, t.getApplicantSkill().getSkillId());
+			presat.setInt(7, Integer.parseInt(t.getApplicantSkill()));
 			presat.setString(8, t.getStream());
+			presat.setInt(9, t.getApplicantId());
 			
-			presat.executeUpdate();
+			int executeUpdate = presat.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override

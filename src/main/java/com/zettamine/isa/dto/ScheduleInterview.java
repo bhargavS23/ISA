@@ -14,9 +14,6 @@ public class ScheduleInterview implements IsaDto {
 	private Integer applicantId;
 	private Integer interviewerId;
 	private Integer recruiterId;
-	private String applicantName;
-	private String interviewerName;
-	private String recruiterName;
 	private Date scheduledDate;
 	private Time scheduledTime;
 	private Status interviewStatus;

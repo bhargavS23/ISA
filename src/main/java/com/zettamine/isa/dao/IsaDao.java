@@ -13,7 +13,7 @@ public interface IsaDao<T extends IsaDto, S extends SearchCriteria> {
 
 	List<T> getBySearchCriteria(S criteria);
 
-	void save(T t);
+	Integer save(T t);
 
 	void update(T t, String...params);
 

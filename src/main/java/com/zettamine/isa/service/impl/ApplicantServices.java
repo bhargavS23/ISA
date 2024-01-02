@@ -44,16 +44,11 @@ public class ApplicantServices {
 		appDao.delete(app);
 	}
 	 
-	public List<Applicant> getBySearchCriteria(Applicant app) {
+	public List<Applicant> getBySearchCriteria(IsaSearchCriteria src) {
 		
 		List<Applicant> byScrList = new ArrayList<>();
-		if (validate(app)) {
-			IsaSearchCriteria scr = new IsaSearchCriteria();
-			scr.setSkillId(app.getApplicantSkill().getSkillId());
-			byScrList = appDao.getBySearchCriteria(scr);
+			byScrList = appDao.getBySearchCriteria(src);
 			return byScrList;
-		}
-		return byScrList;
 	}
 
 	private static boolean validate(Applicant app) {

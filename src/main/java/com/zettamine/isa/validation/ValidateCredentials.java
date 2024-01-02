@@ -6,7 +6,7 @@ public class ValidateCredentials {
 	public boolean validateName(String name) {
 		
 		if(name.length() > 2) {
-			return name.matches("[a-zA-Z]+");
+			return name.matches("[a-z A-Z]+");
 		}
 		else return false;
 	}
