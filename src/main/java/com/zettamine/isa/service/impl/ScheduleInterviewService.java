@@ -6,14 +6,17 @@ import java.util.Optional;
 import com.zettamine.isa.dao.impl.ScheduleInterviewDaoImpl;
 import com.zettamine.isa.dto.IsaSearchCriteria;
 import com.zettamine.isa.dto.ScheduleInterview;
+import com.zettamine.isa.view.dao.impl.IsaInterviewScheduleDaoImpl;
+import com.zettamine.isa.view.dto.InterviewScheduleView;
 
 public class ScheduleInterviewService {
 	
-	static ScheduleInterviewDaoImpl dao = new ScheduleInterviewDaoImpl();
+	private static ScheduleInterviewDaoImpl dao = new ScheduleInterviewDaoImpl();
+	private static IsaInterviewScheduleDaoImpl viewDao = new IsaInterviewScheduleDaoImpl();
 	
-	public ScheduleInterview get(Integer id) {
+	public InterviewScheduleView get(Integer id) {
 		
-		Optional<ScheduleInterview> optional = dao.get(id);
+		Optional<InterviewScheduleView> optional = viewDao.get(id);
 		return optional.get();
 	}
 	
@@ -21,12 +24,12 @@ public class ScheduleInterviewService {
 		dao.save(interview);
 	}
 	
-	public List<ScheduleInterview> getAll(){
-		return dao.getAll();
+	public List<InterviewScheduleView> getAll(){
+		return viewDao.getAll();
 	}
 	
-	public List<ScheduleInterview> getBySearchCriteria(IsaSearchCriteria criteria){
-		return dao.getBySearchCriteria(criteria);
+	public List<InterviewScheduleView> getBySearchCriteria(IsaSearchCriteria criteria){
+		return viewDao.getBySearchCriteria(criteria);
 	}
 	
 	public void update(ScheduleInterview interview) {

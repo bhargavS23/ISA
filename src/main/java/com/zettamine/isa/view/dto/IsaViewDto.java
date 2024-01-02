@@ -1,4 +1,4 @@
-package com.zettamine.isa.dto.view;
+package com.zettamine.isa.view.dto;
 
 public interface IsaViewDto {
 

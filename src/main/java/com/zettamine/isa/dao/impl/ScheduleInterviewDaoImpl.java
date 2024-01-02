@@ -122,7 +122,7 @@ public class ScheduleInterviewDaoImpl implements IsaDao<ScheduleInterview, IsaSe
 
 	@Override
 	public Integer save(ScheduleInterview t) {
-		String quere = "INSERT INTO isa.interview_schedule(applicant_id, interviewer_id, recuiter_id, interview_date, "
+		String quere = "INSERT INTO isa.interview_schedule(applicant_id, interviewer_id, recruiter_id, interview_date, "
 						+ "interview_time, status) "
 						+ "VALUES(?,?,?,?,?,?)";	
 		try {

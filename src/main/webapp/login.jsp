@@ -14,7 +14,7 @@
         margin-top:16px;
         padding:12px;
         }
-        </style>
+        </style> 
     </head>
     <body>
         <div id="wrapper">
