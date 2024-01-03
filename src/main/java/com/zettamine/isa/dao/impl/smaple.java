@@ -73,15 +73,21 @@ public class smaple {
 //		
 //		SkillService ss = new SkillService();
 //		
-//		IsaSearchCriteria src = new IsaSearchCriteria();
+		IsaSearchCriteria src = new IsaSearchCriteria();
 //		src.setSkill_desc("KOTLIN");
 //		app.save(new Applicant(0, "SAGAR", "sagar@gmail.com", "KOTLIN","9832774423", "B.TECH", "EEE", "GOOD", 66.6));
 		
 		ScheduleInterviewService sis = new ScheduleInterviewService();
 		//InterviewScheduleView isv = sis.get(8);
-		List<InterviewScheduleView> all = sis.getAll();
-		System.out.println(all);
-		
+		//List<InterviewScheduleView> all = sis.getAll();
+		//System.out.println(all);
+		//src.setScheduleId(8);
+		src.setApplicantName("RAJU");
+//		src.setInterviewerName("REKHA");
+//		src.setFromDate(Date.valueOf(LocalDate.of(2024, 1, 4)));
+//		src.setToDate(Date.valueOf(LocalDate.of(2024, 1, 16)));
+		List<InterviewScheduleView> srclist = sis.getBySearchCriteria(src);
+		System.out.println(srclist);
 	}
 	
 }

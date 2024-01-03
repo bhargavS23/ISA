@@ -55,8 +55,9 @@ public class ApplicantController extends HttpServlet {
 			break;
 			
 		case "delete":
-			
+			System.out.println("hello delete");
 			Integer id = Integer.parseInt(request.getParameter("id"));
+			System.out.println(id);
 			
 			services.delete(services.get(id));
 			rd=request.getRequestDispatcher("/applicant?action=showall");
@@ -66,8 +67,8 @@ public class ApplicantController extends HttpServlet {
 		case "edit":
 			SkillService skillServ = new SkillService();
 			request.setAttribute("skills", skillServ.getAll());
-			Integer iden = Integer.parseInt(request.getParameter("id"));
-			Applicant app=services.get(iden);
+			Integer appId = Integer.parseInt(request.getParameter("id"));
+			Applicant app=services.get(appId);
 			request.setAttribute("applicant", app);
 			rd=request.getRequestDispatcher("app-update-details.jsp");
 			rd.include(request, response);

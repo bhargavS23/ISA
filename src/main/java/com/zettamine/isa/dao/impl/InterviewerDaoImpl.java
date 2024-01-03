@@ -68,7 +68,6 @@ public class InterviewerDaoImpl implements IsaDao<Interviewer, IsaSearchCriteria
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return intList;
 	}
 

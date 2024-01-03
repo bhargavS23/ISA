@@ -15,24 +15,25 @@ import com.zettamine.isa.dto.IsaSearchCriteria;
 import com.zettamine.isa.view.dao.IsaViewDAO;
 import com.zettamine.isa.view.dto.InterviewScheduleView;
 
-public class IsaInterviewScheduleDaoImpl implements IsaViewDAO<InterviewScheduleView, IsaSearchCriteria>{
+public class IsaInterviewScheduleDaoImpl implements IsaViewDAO<InterviewScheduleView, IsaSearchCriteria> {
 
 	private Connection conn = null;
 	private static PreparedStatement presat = null;
-	
+
 	public IsaInterviewScheduleDaoImpl() {
 		conn = ConnectionFactory.getDBConnection();
 	}
+
 	@Override
 	public List<InterviewScheduleView> getAll() {
-		 
+
 		List<InterviewScheduleView> isvList = new ArrayList<>();
 		String querey = "SELECT * FROM isa.schedule_view";
 		try {
 			presat = conn.prepareStatement(querey);
-			
+
 			ResultSet rs = presat.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				int scheduleId = rs.getInt(1);
 				String appName = rs.getString(2);
 				String intrvwrName = rs.getString(3);
@@ -40,8 +41,8 @@ public class IsaInterviewScheduleDaoImpl implements IsaViewDAO<InterviewSchedule
 				Date interDate = rs.getDate(5);
 				Time interTime = rs.getTime(6);
 				String status = rs.getString(7);
-				isvList.add(new InterviewScheduleView(scheduleId, appName, intrvwrName, 
-													rcutName, interDate, interTime, status));
+				isvList.add(new InterviewScheduleView(scheduleId, appName, intrvwrName, rcutName, interDate, interTime,
+						status));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -57,7 +58,7 @@ public class IsaInterviewScheduleDaoImpl implements IsaViewDAO<InterviewSchedule
 			presat = conn.prepareStatement(querey);
 			presat.setInt(1, id);
 			ResultSet rs = presat.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				int scheduleId = rs.getInt(1);
 				String appName = rs.getString(2);
 				String intrvwrName = rs.getString(3);
@@ -65,10 +66,10 @@ public class IsaInterviewScheduleDaoImpl implements IsaViewDAO<InterviewSchedule
 				Date interDate = rs.getDate(5);
 				Time interTime = rs.getTime(6);
 				String status = rs.getString(7);
-				isvOpt = Optional.ofNullable(new InterviewScheduleView(scheduleId, appName, intrvwrName, 
-													rcutName, interDate, interTime, status));
+				isvOpt = Optional.ofNullable(new InterviewScheduleView(scheduleId, appName, intrvwrName, rcutName,
+						interDate, interTime, status));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -76,9 +77,52 @@ public class IsaInterviewScheduleDaoImpl implements IsaViewDAO<InterviewSchedule
 	}
 
 	@Override
-	public List<InterviewScheduleView> getBySearchCriteria(IsaSearchCriteria s) {
+	public List<InterviewScheduleView> getBySearchCriteria(IsaSearchCriteria criteria) {
+		StringBuilder buildQuere = new StringBuilder("SELECT * FROM isa.schedule_view WHERE");
+		String querey = "";
+		List<InterviewScheduleView> srcList = new ArrayList<>();
 		
-		return null;
+		if (criteria.getScheduleId() != null) {
+			buildQuere.append(" schedule_id ="+criteria.getScheduleId() +" AND");
+		} else {
+			if (criteria.getApplicantName() != null) {
+				buildQuere.append(" applicant_name =" + "'" +criteria.getApplicantName() +"' AND");
+			}
+			if (criteria.getInterviewerName() != null) {
+				buildQuere.append(" interviewer_name =" + "'" +criteria.getInterviewerName() +"' AND");
+			}
+			if (criteria.getRecrName() != null) {
+				buildQuere.append(" recruiter_name =" + "'" +criteria.getRecrName() +"' AND");
+			}
+			if (criteria.getFromDate() != null && criteria.getToDate() != null) {
+				buildQuere.append(" interview_date BETWEEN" + " '" +criteria.getFromDate() +"' AND '" + criteria.getToDate()+"'");
+			}
+		}
+		querey = buildQuere.toString();
+		if (querey.endsWith(" WHERE")) {
+			querey = querey.substring(0, querey.length() - 6);
+		} else if (querey.endsWith(" AND")) {
+			querey = querey.substring(0, querey.length() - 4);
+		}
+		
+		try {
+			presat = conn.prepareStatement(querey);
+			ResultSet rs = presat.executeQuery();
+				while (rs.next()) {
+					int scheduleId = rs.getInt(1);
+					String appName = rs.getString(2);
+					String intrvwrName = rs.getString(3);
+					String rcutName = rs.getString(4);
+					Date interDate = rs.getDate(5);
+					Time interTime = rs.getTime(6);
+					String status = rs.getString(7);
+					srcList.add(new InterviewScheduleView(scheduleId, appName, intrvwrName, rcutName, interDate, interTime,
+							status));
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return srcList;
 	}
 
 }

@@ -10,6 +10,10 @@
     <title>interviewers</title>
 </head>
 <style>
+
+th,td{
+    padding: 15px 25px; 
+}
 .buttons select{
 margin-left: 16px ;
 border-radius: 10px;

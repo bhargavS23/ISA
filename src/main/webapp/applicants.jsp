@@ -9,7 +9,11 @@
     <script src="https://kit.fontawesome.com/9dc55b3f56.js" crossorigin="anonymous"></script>
     <title>Applicants</title>
 </head>
+
 <style>
+th,td {
+padding: 15px 25px;
+}
 .buttons select{
 margin-left: 16px ;
 border-radius: 10px;
@@ -118,18 +122,12 @@ cursor:pointer;
                 <td>${applicant.getStream() }</td>
                
                 
-                <td><a href="/InterviewSechdulerApplication/applicant?action=edit&id=${applicant.getApplicantId() }"><i style=color:blue class="fa-solid fa-pen-to-square"></i></a></td>
-                <td><a href="/InterviewSechdulerApplication/applicant?action=delete&id=${applicant.getApplicantId() }"><i  class="fa-solid fa-trash" onclick="return confirm('Do you want to delete this applicant ?')"></i></a></td>
-                <td><a href="/InterviewSechdulerApplication/applicant?action=schedule&id=${applicant.getApplicantId() }"><i style=color:green;margin-left:22px class="fa-solid fa-calendar-days"></i></a></td> 
+                <td><a href="/InterviewSechdulerApplication/applicant?action=edit&id=${applicant.getApplicantId()}"><i style=color:blue class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><a href="/InterviewSechdulerApplication/applicant?action=delete&id=${applicant.getApplicantId()}"><i  class="fa-solid fa-trash" onclick="return confirm('Do you want to delete this applicant ?')"></i></a></td>
+                <td><a href="/InterviewSechdulerApplication/applicant?action=schedule&id=${applicant.getApplicantId()}"><i style=color:green;margin-left:22px class="fa-solid fa-calendar-days"></i></a></td> 
             </tr>
-            </c:forEach>
-            
+            </c:forEach> 
         </table>
     </div>
-    
-
-    
-   
-
 </body>
 </html>

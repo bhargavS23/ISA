@@ -65,22 +65,17 @@ public class IsaSkillDaoImpl implements IsaDao<Skill, IsaSearchCriteria> {
 	@Override
 	public List<Skill> getBySearchCriteria(IsaSearchCriteria criteria) {
 		
-		System.out.println(criteria.getSkill_desc());
-		
 		List<Skill> bySearch = new ArrayList<>();
 		String querey = "SELECT * from isa.skill WHERE skill_desc = ?";
 		try {
 			presat = con.prepareStatement(querey);
 			presat.setString(1, criteria.getSkill_desc());
-			
 			ResultSet rs = presat.executeQuery();
-			
 			while(rs.next()) {
 				int skillId = rs.getInt(1);
 				String skillDesc = rs.getString(2);
 				bySearch.add(new Skill(skillId, skillDesc));
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

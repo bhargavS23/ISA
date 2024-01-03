@@ -33,7 +33,6 @@
            if(invalid!=null)
           out.println( "<p style=color:white;text-align:center;font-size:22px>"+ invalid +"</p>");
            %>
-          
         </div>
         </body>
 </html>

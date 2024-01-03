@@ -23,7 +23,6 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 	private PreparedStatement presat = null;
 	
 	IsaSkillDaoImpl skillDao = new IsaSkillDaoImpl();
-	
 	IsaSearchCriteria src = new IsaSearchCriteria();
 
 	public ApplicantDaoImpl() {
@@ -33,7 +32,7 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 	@Override
 	public Optional<Applicant> get(int id) {
 		
-		String querey = "SELECT * FROM isa.applicant WHERE applicant_id =?";
+		String querey = "SELECT * FROM isa.applicant WHERE active ='ACTIVE' AND applicant_id =?";
 		Optional<Applicant> appOpt= Optional.empty();
 		try {
 			presat = con.prepareStatement(querey);
@@ -65,7 +64,7 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 
 	@Override
 	public List<Applicant> getAll() {
-		String querey = "SELECT * FROM isa.applicant";
+		String querey = "SELECT * FROM isa.applicant  WHERE active = 'ACTIVE' ORDER BY applicant_id";
 		List<Applicant> appList = new ArrayList<Applicant>();
 		
 		try {
@@ -175,7 +174,7 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 	public void delete(Applicant t) {
 		
 		try {
-			presat = con.prepareStatement("DELETE FROM isa.applicant WHERE applicant_id = ?");
+			presat = con.prepareStatement("UPDATE isa.applicant SET active ='INACTIVE' WHERE applicant_id = ?");
 			presat.setInt(1, t.getApplicantId());
 			presat.executeUpdate();
 		} catch (SQLException e) {

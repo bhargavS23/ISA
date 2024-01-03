@@ -78,6 +78,11 @@ public class ScheduleInterviewDaoImpl implements IsaDao<ScheduleInterview, IsaSe
 		
 		List<ScheduleInterview> siList = new ArrayList<>();
 		String querey = "SELECT * FROM isa.interview_schedule WHERE";
+		
+		if(criteria.getScheduleId() != null) {
+			querey += " schedule_id = ?";
+		}
+		else {
 			if(criteria.getApplicantId() != null) {
 				querey += " applicant_id =" +criteria.getApplicantId() + " AND";
 			}
@@ -90,6 +95,7 @@ public class ScheduleInterviewDaoImpl implements IsaDao<ScheduleInterview, IsaSe
 			if(criteria.getFromDate() != null  && criteria.getToDate() !=null) {
 				querey += " interview_date BETWEEN" + "'"+criteria.getFromDate()+"'" +" AND " + "'"+criteria.getToDate()+"'";
 			}
+		}
 			
 			if(querey.endsWith(" AND")) {
 				querey = querey.substring(0, querey.length() -4);
