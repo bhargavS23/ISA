@@ -32,7 +32,7 @@ public class InterviewerDaoImpl implements IsaDao<Interviewer, IsaSearchCriteria
 		IsaSkillDaoImpl skillDao = new IsaSkillDaoImpl();
 		Optional<Interviewer> interviewerOpt = null;
 				try {
-			presat = con.prepareStatement("SELECT * FROM isa.interviewer WHERE interviewer_id = ?");
+			presat = con.prepareStatement("SELECT * FROM isa.interviewer WHERE active = 'ACTIVE' AND interviewer_id = ?");
 			presat.setInt(1, id);
 			ResultSet rs = presat.executeQuery();
 			while(rs.next()) {
@@ -54,7 +54,7 @@ public class InterviewerDaoImpl implements IsaDao<Interviewer, IsaSearchCriteria
 	public List<Interviewer> getAll() {
 		List<Interviewer> intList = new ArrayList<>();
 		try {
-			presat =con.prepareStatement("SELECT * FROM isa.interviewer ORDER BY interviewer_id");
+			presat =con.prepareStatement("SELECT * FROM isa.interviewer WHERE active = 'ACTIVE' ORDER BY interviewer_id");
 			ResultSet rs = presat.executeQuery();
 			while(rs.next()) {
 				int intId = rs.getInt(1);
@@ -77,7 +77,7 @@ public class InterviewerDaoImpl implements IsaDao<Interviewer, IsaSearchCriteria
 		List<Interviewer> intList = new ArrayList<>();
 		IsaSkillDaoImpl skillDao = new IsaSkillDaoImpl();
 		try {
-			presat = con.prepareStatement("SELECT * FROM isa.interviewer WHERE primary_skill = ?");
+			presat = con.prepareStatement("SELECT * FROM isa.interviewer WHERE active = 'ACTIVE' AND primary_skill = ?");
 			presat.setInt(1, criteria.getSkillId());
 			ResultSet rs = presat.executeQuery();
 			while(rs.next()) {
@@ -118,7 +118,7 @@ public class InterviewerDaoImpl implements IsaDao<Interviewer, IsaSearchCriteria
 		
 		try {
 			presat = con.prepareStatement("UPDATE isa.interviewer set interviewer_name = ?,  email =? ,primary_skill = ?"
-					+ " WHERE interviewer_id = ?");
+										+ " WHERE interviewer_id = ?");
 			presat.setString(1, t.getInterviewerName());
 			presat.setString(2, t.getInterviewerEmail());
 			presat.setInt(3,Integer.parseInt(t.getInterviewerSkill()));
@@ -131,9 +131,9 @@ public class InterviewerDaoImpl implements IsaDao<Interviewer, IsaSearchCriteria
 
 	@Override
 	public void delete(Interviewer t) {
-		
+		 
 		try {
-			presat = con.prepareStatement("DELETE FROM isa.interviewer WHERE interviewer_id = ?");
+			presat = con.prepareStatement("UPDATE isa.interviewer SET active = 'INACTIVE' WHERE interviewer_id = ?");
 			presat.setInt(1,t.getInterviewerId());
 			presat.executeUpdate();
 		} catch (SQLException e) {

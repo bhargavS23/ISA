@@ -82,7 +82,7 @@ public class smaple {
 		//List<InterviewScheduleView> all = sis.getAll();
 		//System.out.println(all);
 		//src.setScheduleId(8);
-		src.setApplicantName("RAJU");
+		src.setApplicantName("SHIVA KUMAR");
 //		src.setInterviewerName("REKHA");
 //		src.setFromDate(Date.valueOf(LocalDate.of(2024, 1, 4)));
 //		src.setToDate(Date.valueOf(LocalDate.of(2024, 1, 16)));
