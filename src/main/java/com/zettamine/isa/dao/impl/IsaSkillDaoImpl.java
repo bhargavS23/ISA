@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,32 +12,31 @@ import java.util.Optional;
 import com.zettamine.isa.dao.IsaDao;
 import com.zettamine.isa.dbconfig.ConnectionFactory;
 import com.zettamine.isa.dto.IsaSearchCriteria;
-import com.zettamine.isa.dto.SearchCriteria;
 import com.zettamine.isa.dto.Skill;
 
 public class IsaSkillDaoImpl implements IsaDao<Skill, IsaSearchCriteria> {
-	
-	
+
 	private Connection con = null;
 	private PreparedStatement presat = null;
 
 	public IsaSkillDaoImpl() {
-		
-		con =ConnectionFactory.getDBConnection();
+
+		con = ConnectionFactory.getDBConnection();
 	}
+
 	@Override
-	public Optional<Skill> get(int id)  {
+	public Optional<Skill> get(int id) {
 		Optional<Skill> skill = null;
 		try {
-			presat=con.prepareStatement("SELECT * FROM isa.skill WHERE skill_id = ?");
+			presat = con.prepareStatement("SELECT * FROM isa.skill WHERE skill_id = ?");
 			presat.setInt(1, id);
 			ResultSet rs = presat.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				int skillId = rs.getInt(1);
 				String skillDesc = rs.getString(2);
 				skill = Optional.ofNullable(new Skill(skillId, skillDesc));
 			}
-				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -45,16 +45,16 @@ public class IsaSkillDaoImpl implements IsaDao<Skill, IsaSearchCriteria> {
 
 	@Override
 	public List<Skill> getAll() {
-		
+
 		List<Skill> skillList = new ArrayList<Skill>();
 		try {
 			presat = con.prepareStatement("SELECT * FROM isa.skill");
 			ResultSet rs = presat.executeQuery();
-			while(rs.next()) {
-				
+			while (rs.next()) {
+
 				Integer skillId = rs.getInt(1);
-				String skillDesc= rs.getString(2);
-				skillList.add(new Skill(skillId,skillDesc));
+				String skillDesc = rs.getString(2);
+				skillList.add(new Skill(skillId, skillDesc));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,14 +64,14 @@ public class IsaSkillDaoImpl implements IsaDao<Skill, IsaSearchCriteria> {
 
 	@Override
 	public List<Skill> getBySearchCriteria(IsaSearchCriteria criteria) {
-		
+
 		List<Skill> bySearch = new ArrayList<>();
 		String querey = "SELECT * from isa.skill WHERE skill_desc = ?";
 		try {
 			presat = con.prepareStatement(querey);
 			presat.setString(1, criteria.getSkill_desc());
 			ResultSet rs = presat.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				int skillId = rs.getInt(1);
 				String skillDesc = rs.getString(2);
 				bySearch.add(new Skill(skillId, skillDesc));
@@ -84,7 +84,7 @@ public class IsaSkillDaoImpl implements IsaDao<Skill, IsaSearchCriteria> {
 
 	@Override
 	public Integer save(Skill skill) {
-		String query ="insert into isa.skill(skill_desc) values(?)";
+		String query = "insert into isa.skill(skill_desc) values(?)";
 		try {
 			presat = con.prepareStatement(query);
 			presat.setString(1, skill.getSkillDsec());
@@ -101,14 +101,32 @@ public class IsaSkillDaoImpl implements IsaDao<Skill, IsaSearchCriteria> {
 
 	@Override
 	public void delete(Skill skill) {
-		
-		String query ="DELETE FROM isa.skill WHERE skill_id= ?";
+
+		String query = "DELETE FROM isa.skill WHERE skill_id= ?";
 		try {
-			presat=con.prepareStatement(query);
+			presat = con.prepareStatement(query);
 			presat.setInt(1, skill.getSkillId());
 			presat.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
+//	public Integer getIdBySkill(String skill) {
+//
+//		try {
+//			String query = "select skill_id from isa.skill where skill_desc=" + skill + ";";
+//			Statement st = con.createStatement();
+//			ResultSet rs = st.executeQuery(query);
+//			if (rs.next()) {
+//
+//				System.out.println(rs);
+//				return rs.getInt(1);
+//			}
+//		} catch (SQLException e) {
+//
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
 }

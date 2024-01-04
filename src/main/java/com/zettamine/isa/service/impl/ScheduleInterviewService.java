@@ -10,32 +10,38 @@ import com.zettamine.isa.view.dao.impl.IsaInterviewScheduleDaoImpl;
 import com.zettamine.isa.view.dto.InterviewScheduleView;
 
 public class ScheduleInterviewService {
-	
+
 	private static ScheduleInterviewDaoImpl dao = new ScheduleInterviewDaoImpl();
 	private static IsaInterviewScheduleDaoImpl viewDao = new IsaInterviewScheduleDaoImpl();
-	
+
 	public InterviewScheduleView get(Integer id) {
-		
+
 		Optional<InterviewScheduleView> optional = viewDao.get(id);
 		return optional.get();
 	}
-	
+
+	public ScheduleInterview getScheduledInterview(Integer id) {
+
+		Optional<ScheduleInterview> optional = dao.get(id);
+		return optional.get();
+	}
+
 	public void save(ScheduleInterview interview) {
 		dao.save(interview);
 	}
-	
-	public List<InterviewScheduleView> getAll(){
+
+	public List<InterviewScheduleView> getAll() {
 		return viewDao.getAll();
 	}
-	
-	public List<InterviewScheduleView> getBySearchCriteria(IsaSearchCriteria criteria){
+
+	public List<InterviewScheduleView> getBySearchCriteria(IsaSearchCriteria criteria) {
 		return viewDao.getBySearchCriteria(criteria);
 	}
-	
+
 	public void update(ScheduleInterview interview) {
 		dao.update(interview, "");
 	}
-	
+
 	public void delete(ScheduleInterview interview) {
 		dao.delete(interview);
 	}

@@ -44,4 +44,11 @@ public class SkillService {
 	public List<Skill> getBySearchCriteria(IsaSearchCriteria criteria){
 		return dao.getBySearchCriteria(criteria);
 	}
+	
+	public Integer getSkillById(String desc) {
+		IsaSearchCriteria src = new IsaSearchCriteria();
+		 src.setSkill_desc(desc);
+		 List<Skill> list = dao.getBySearchCriteria(src);
+		 return list.get(0).getSkillId();
+	}
 }

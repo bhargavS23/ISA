@@ -30,7 +30,7 @@
                 Interviewers
             
         </a>
-        <a href="" style="color:orange">
+        <a href="interviews.jsp" style="color:orange">
         
                 <i class="fa-solid fa-calendar-days"></i>
             <span style="margin-left:20px">Interviews Scheduled</span>    

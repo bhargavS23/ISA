@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./jsp/app-details.css">
     <script src="https://kit.fontawesome.com/9dc55b3f56.js" crossorigin="anonymous"></script>
-    <title>Schedule Interview</title>
+    <title>Update Schedule</title>
     <style>
         .form #subcol1{
    
@@ -23,9 +23,9 @@ form button{
     </style>
 </head>
 <body>
-    <h1 style=margin-top:30px;><i class="fa-solid fa-clock"></i> Schedule Interview  </h1>
+    <h1 style=margin-top:30px;><i class="fa-solid fa-pen-to-square"></i> Update Schedule details  </h1>
     <div id="container">
-        <form action="/InterviewSechdulerApplication/interview?action=schedule-new" method="post">
+        <form action="/InterviewSechdulerApplication/interview?action=update" method="post">
             <div class="form">
 
            
@@ -38,8 +38,9 @@ form button{
                      
                 </div>
                 <div id="subcol2">
-                    <input type="hidden" name="applSkillId" value="${applSkillId }">
-                    <input type="hidden" name="applId" value="${applicant.getApplicantId() }">
+                   
+                    <input type="hidden" name="applId" value="${applicant.getApplicantId()}">
+                    <input type="hidden" name="id" value="${schedule.getScheduleId()}">
                     <input type="text" name="name" value="${applicant.getApplicantName() }" required placeholder="name" readonly>
                     <input type="email" name="email" value="${applicant.getApplicantEmail() }" required placeholder="email" readonly>
                     
@@ -51,9 +52,9 @@ form button{
                 <div id="subcol1">
                    
                     <label for="name">Select Interviewer<span style="color: red;">*</span></label>
-                    <label for="name">Status<span style="color: red;">*</span></label>
-                    <label for="name">Select Date<span style="color: red;">*</span></label>
-                    <label for="name">Time<span style="color: red;">*</span></label>
+                    <label for="status">Status<span style="color: red;">*</span></label>
+                    <label for="date">Select Date<span style="color: red;">*</span></label>
+                    <label for="time">Time<span style="color: red;">*</span></label>
                     
 
                 </div>
@@ -74,9 +75,11 @@ form button{
                         </select>
                     <select name="status" id="" aria-placeholder="skill" required>
                         <option value="scheduled">SCHEDULED</option>
+                        <option value="completed">COMPLETED</option>
+                        <option value="cancelled">CANCELLED</option>
                         </select>
-                    <input type="date" required placeholder="date" name="date">
-                    <input type="time" required placeholder="time" name="time">
+                    <input type="date" value="${schedule.getScheduleDate() }" required placeholder="date" name="date">
+                    <input type="time" value="${schedule.getScheduleTime() }" required placeholder="time" name="time">
                     
 
                 </div>

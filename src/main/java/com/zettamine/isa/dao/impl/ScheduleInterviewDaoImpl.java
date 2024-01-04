@@ -152,10 +152,10 @@ public class ScheduleInterviewDaoImpl implements IsaDao<ScheduleInterview, IsaSe
 	@Override
 	public void update(ScheduleInterview t, String... params) {
 		
-		String quere ="UPDATE isa.interview_schedule "
-					+ "SET applicant_id = ?, interviewer_id = ?, recuiter_id = ?, interview_date = ?, " 
-					+ "interview_time  = ?, status = ?, "
-					+ "WHERE schedule_id = ?";
+		String quere = "UPDATE isa.interview_schedule"
+				+" SET applicant_id =? , interviewer_id = ?, recruiter_id = ?, interview_date =?," 
+				+" interview_time  = ?, status = ?"
+				 +" WHERE schedule_id = ?";
 		try {
 			presat = con.prepareStatement(quere);
 			
@@ -165,7 +165,7 @@ public class ScheduleInterviewDaoImpl implements IsaDao<ScheduleInterview, IsaSe
 			presat.setDate(4, t.getScheduledDate());
 			presat.setTime(5, t.getScheduledTime());
 			presat.setString(6, t.getInterviewStatus().getValue());
-			presat.setInt(10, t.getScheduleId());
+			presat.setInt(7, t.getScheduleId());
 			presat.executeUpdate();
 			
 		} catch (SQLException e) {

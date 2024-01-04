@@ -98,7 +98,7 @@ public class ApplicantDaoImpl implements IsaDao<Applicant, IsaSearchCriteria> {
 		List<Applicant> intList = new ArrayList<>();
 		
 		try {
-			presat = con.prepareStatement("SELECT * FROM isa.applicant WHERE active = 'ACTIVE' primary_skill = ?");
+			presat = con.prepareStatement("SELECT * FROM isa.applicant WHERE active ='ACTIVE' AND primary_skill = ?");
 			presat.setInt(1, criteria.getSkillId());
 			ResultSet rs = presat.executeQuery();
 			while(rs.next()) {

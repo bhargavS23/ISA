@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title></title>
+<script src="https://kit.fontawesome.com/9dc55b3f56.js" crossorigin="anonymous"></script>
 <style>
 *{
     padding: 0;
@@ -13,29 +13,62 @@
 }
 nav{
     background:linear-gradient(45deg,rgb(70, 70, 248),rgb(130, 186, 238));
-    padding:26px 32px;
+    padding:20px 32px;
     display: flex;
-    justify-content:center;
+    justify-content:space-around;
+    align-items: center;
     gap: 70px;
     box-shadow: 0px 0px 10px black;
+    position: sticky;
+    top: 0;
 }
-nav>a{
+nav>div >a{
     color: white;
     text-decoration: none;
+    font-size: 18px;
     font-weight: 600;
 
 }
 nav>a:hover{
     color: black;
+    
 }
+nav>img{
+    background-color: blue;
+    z-index: 1000;
+}
+a{
+    transition: all 0.5s;
+}
+a:hover{
+ transform: scale(1.1);
+ text-shadow: 0px 0px 20px black;
+}
+i:hover{
+ transform: scale(1.1);
+ text-shadow: 0px 0px 5px gray;
+}
+
 </style>
 </head>
 <body>
 <nav>
-        <a href="index.jsp">Home</a>
-        <a href="">About Us</a>
-        <a href="">Contact Us</a>
-        <a href="login.jsp">Logout</a>
+    <div>
+
+        <a href="/InterviewSechdulerApplication/index.jsp" style="font-family: cursive;font-size: 36px;">ZISA</a>
+    </div>
+    <div style="display: flex; gap: 50px;">
+
+        <a href="/InterviewSechdulerApplication/index.jsp">Home</a>
+        <a href="/InterviewSechdulerApplication/skills.jsp">Skills</a>
+        <a href="/InterviewSechdulerApplication/applicants.jsp">Applicants</a>
+        <a href="/InterviewSechdulerApplication/interviewer.jsp">Interviewers</a>
+        <a href="/InterviewSechdulerApplication/interviews.jsp">Schedule Interviews</a>
+    </div>
+        <div>
+
+            <a id="logout" href="/InterviewSechdulerApplication/login?logout=true"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
     </nav>
 
 </body>

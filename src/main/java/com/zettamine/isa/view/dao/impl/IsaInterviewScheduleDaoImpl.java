@@ -86,13 +86,10 @@ public class IsaInterviewScheduleDaoImpl implements IsaViewDAO<InterviewSchedule
 			buildQuere.append(" schedule_id ="+criteria.getScheduleId() +" AND");
 		} else {
 			if (criteria.getApplicantName() != null) {
-				buildQuere.append(" applicant_name =" + "'%" +criteria.getApplicantName() +"%' AND");
+				buildQuere.append(" applicant_name LIKE '%" +criteria.getApplicantName() +"%' AND");
 			}
 			if (criteria.getInterviewerName() != null) {
-				buildQuere.append(" interviewer_name =" + "'%"+criteria.getInterviewerName() +"%' AND");
-			}
-			if (criteria.getRecrName() != null) {
-				buildQuere.append(" recruiter_name =" +"'%"+criteria.getRecrName() +"%' AND");
+				buildQuere.append(" interviewer_name LIKE '%"+criteria.getInterviewerName() +"%' AND");
 			}
 			if (criteria.getFromDate() != null && criteria.getToDate() != null) {
 				buildQuere.append(" interview_date BETWEEN" + " '" +criteria.getFromDate() +"' AND '" + criteria.getToDate()+"'");

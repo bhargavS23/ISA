@@ -3,6 +3,7 @@ package com.zettamine.isa.contoller;
 import java.io.IOException;
 import java.util.List;
 
+import com.zettamine.isa.dao.impl.IsaSkillDaoImpl;
 import com.zettamine.isa.dto.Applicant;
 import com.zettamine.isa.dto.IsaSearchCriteria;
 import com.zettamine.isa.dto.SearchCriteria;
@@ -104,12 +105,13 @@ public class ApplicantController extends HttpServlet {
 			System.out.println("Schedule case");
 			IsaSearchCriteria searchCrt = new IsaSearchCriteria();
 			ApplicantServices appSer = new ApplicantServices();
+			IsaSkillDaoImpl skillDao = new IsaSkillDaoImpl();
 			Applicant applicant = appSer.get(Integer.parseInt(request.getParameter("id")));
-			searchCrt.setSkillId(Integer.parseInt(applicant.getApplicantSkill()));
+			searchCrt.setSkill_desc(applicant.getApplicantSkill());
+			int skillId = skillDao.getBySearchCriteria(searchCrt).get(0).getSkillId();
+			searchCrt.setSkillId(skillId);
 			InterviewerServices intSer = new InterviewerServices();
 			request.setAttribute("interviewers",intSer.getBySearchCriteria(searchCrt) );
-			System.out.println(applicant);
-			System.out.println(intSer.getBySearchCriteria(searchCrt));
 			request.setAttribute("applicant", applicant);
 			rd=request.getRequestDispatcher("schedule-interviews.jsp");
 			rd.include(request, response);
