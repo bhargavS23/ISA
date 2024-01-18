@@ -1,0 +1,15 @@
+1704088096258	Rename type 'ScheduleInterviewDao'
+1704094875381	Delete element
+1704128282970	Rename local variable 'siOpt'
+1704178086576	Rename local variable 'service'
+1704179610187	Rename local variable 'ser'
+1704179720387	Delete element
+1704189537386	Rename local variable 'iden'
+1704192529534	Rename field 'inDao'
+1704193847674	Rename local variable 'skillServi'
+1704194003292	Rename local variable 'search'
+1704209665670	Rename package 'com.zettamine.isa.dto.view'
+1704210060413	Delete element
+1704217631427	Rename local variable 'iden'
+1704219188924	Rename local variable 'querey'
+1704302943714	Move 'navbar.jsp' to 'webapp'

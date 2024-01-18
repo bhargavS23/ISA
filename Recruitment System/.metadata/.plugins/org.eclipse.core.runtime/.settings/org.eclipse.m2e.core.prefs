@@ -1,0 +1,6 @@
+eclipse.m2.defaultRuntime=EMBEDDED
+eclipse.m2.runtimes=apache-maven-3.9.6
+eclipse.m2.runtimesNodes/apache-maven-3.9.6/location=D\:\\Apache Maven\\apache-maven-3.9.6
+eclipse.m2.runtimesNodes/apache-maven-3.9.6/type=EXTERNAL
+eclipse.m2.userSettingsFile=D\:\\Apache Maven\\apache-maven-3.9.6\\conf\\settings.xml
+eclipse.preferences.version=1
